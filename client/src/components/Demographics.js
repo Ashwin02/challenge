@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Table, Dropdown } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -21,8 +21,8 @@ function Demographics() {
   console.log("users ", users);
   return (
     <>
-      <h4>Age Demographics of Users With {'value'}</h4>
-
+      <h4>Age Demographics of Users With "value"</h4>
+      <Menu />
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -42,6 +42,22 @@ function Demographics() {
         </tbody>
       </Table>
     </>
+  );
+}
+
+function Menu() {
+  return (
+    <Dropdown className="my-2">
+      <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        Item
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 }
 
