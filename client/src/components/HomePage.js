@@ -5,13 +5,13 @@ import { Container, Row, Col } from "react-bootstrap";
 function HomePage() {
   return (
     <Container fluid>
-      <Row>
-        <Col>1 of 3</Col>
-        <Col xs={8} className="border-warning">
+      <Row className="min-vh-100" style={{'backgroundColor': '#041e42'}}>
+        <Col></Col>
+        <Col xs={8} className="border-warning p-4 bg-light text-dark">
           <Users />
           <Demographics />
         </Col>
-        <Col>3 of 3</Col>
+        <Col></Col>
       </Row>
     </Container>
   );

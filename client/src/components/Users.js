@@ -21,10 +21,16 @@ function Users() {
   console.log("users ", users);
   return (
     <>
-      <h4>All Users</h4>
-      <p>Users and their age</p>
+      <h4
+        className="mt-2 mb-2 p-1 text-light rounded"
+        style={{ backgroundColor: "#0071DC" }}
+      >
+        All Users
+      </h4>
 
-      <Table striped bordered hover size="sm">
+      <p className="text-secondary">Users and their age</p>
+
+      <Table striped bordered hover size="sm" className="m-1 p-1">
         <thead>
           <tr>
             <th>Username</th>
