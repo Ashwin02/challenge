@@ -1,6 +1,7 @@
-import { Table, Dropdown } from "react-bootstrap";
+import { Table, Dropdown} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AlertMessage from "./AlertMessage";
 
 function Demographics() {
   useEffect(() => {
@@ -8,15 +9,17 @@ function Demographics() {
       .get("/allOptions")
       .then(function (response) {
         setAllOptions(response.data);
+        
       })
       .catch(function (error) {
-        // Hanlde Error
+        setError(true)
       });
   }, []);
 
   const [allOptions, setAllOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [demographicsData, setDemographicsData] = useState([]);
+  const [displayError, setError] = useState(false)
 
   const onSelectOption = (option) => {
     setSelectedOption(option);
@@ -30,7 +33,7 @@ function Demographics() {
         setDemographicsData(response.data);
       })
       .catch(function (error) {
-        // Hanlde Error
+        setError(true)
       });
   };
 
@@ -74,6 +77,7 @@ function Demographics() {
           )}
         </tbody>
       </Table>
+      {displayError ? <AlertMessage close={() => setError(false)}/> : null}
     </>
   );
 }
@@ -96,5 +100,7 @@ function Menu({ options, onClickHandler, selectedOption }) {
     </Dropdown>
   );
 }
+
+
 
 export default Demographics;

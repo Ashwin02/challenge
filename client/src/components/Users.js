@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AlertMessage from "./AlertMessage";
 
 function Users() {
   useEffect(() => {
@@ -10,11 +11,12 @@ function Users() {
         setUsers(response.data);
       })
       .catch(function (error) {
-        // Hanlde Error
+        setError(true);
       });
   }, []);
 
   const [users, setUsers] = useState([]);
+  const [displayError, setError] = useState(false);
   return (
     <>
       <h4
@@ -50,6 +52,7 @@ function Users() {
           )}
         </tbody>
       </Table>
+      {displayError ? <AlertMessage close={() => setError(false)} /> : null}
     </>
   );
 }
