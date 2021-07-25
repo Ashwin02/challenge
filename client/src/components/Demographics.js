@@ -1,4 +1,4 @@
-import { Table, Dropdown } from "react-bootstrap";
+import { Table, Dropdown, Badge } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -12,16 +12,36 @@ function Demographics() {
       })
       .catch(function (error) {
         // handle error
+        // TODO: Adde error handling for all routes
         console.log(error);
       });
   }, []);
 
   const [allOptions, setAllOptions] = useState([]);
-  console.log("items ", allOptions);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [demographicsData, setDemographicsData] = useState([]);
+
+  const onSelectOption = (option) => {
+    console.log(option);
+    setSelectedOption(option);
+    getDemographicsData(option);
+  };
+
+  const getDemographicsData = (option) => {
+    axios
+      .get(`/users/age/${option}`)
+      .then(function (response) {
+        setDemographicsData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
-      <h4>Age Demographics of Users With "value"</h4>
-      <Menu options={allOptions} />
+      <h4>Age Demographics of Users With <Badge pill bg="success">{selectedOption.toUpperCase()}</Badge></h4>
+      <Menu options={allOptions} onClickHandler={onSelectOption} />
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -30,21 +50,21 @@ function Demographics() {
           </tr>
         </thead>
         <tbody>
-          {/* {users.map((item, i) => {
+          {demographicsData.map((item, i) => {
             return (
               <tr key={i}>
-                <td> {item.username} </td>
                 <td> {item.age} </td>
+                <td> {item.count} </td>
               </tr>
             );
-          })} */}
+          })}
         </tbody>
       </Table>
     </>
   );
 }
 
-function Menu({ options }) {
+function Menu({ options, onClickHandler }) {
   return (
     <Dropdown className="my-2">
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -52,7 +72,11 @@ function Menu({ options }) {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {options.map((item, i) => {
-          return <Dropdown.Item>{item}</Dropdown.Item>;
+          return (
+            <Dropdown.Item onClick={() => onClickHandler(item)}>
+              {item}
+            </Dropdown.Item>
+          );
         })}
       </Dropdown.Menu>
     </Dropdown>
