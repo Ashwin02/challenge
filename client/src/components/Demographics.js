@@ -7,13 +7,10 @@ function Demographics() {
     axios
       .get("/allOptions")
       .then(function (response) {
-        // handle success
         setAllOptions(response.data);
       })
       .catch(function (error) {
-        // handle error
-        // TODO: Adde error handling for all routes
-        console.log(error);
+        // Hanlde Error
       });
   }, []);
 
@@ -22,7 +19,6 @@ function Demographics() {
   const [demographicsData, setDemographicsData] = useState([]);
 
   const onSelectOption = (option) => {
-    console.log(option);
     setSelectedOption(option);
     getDemographicsData(option);
   };
@@ -34,7 +30,7 @@ function Demographics() {
         setDemographicsData(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        // Hanlde Error
       });
   };
 
@@ -44,8 +40,14 @@ function Demographics() {
         className="mt-5 mb-2 p-1 text-light rounded"
         style={{ backgroundColor: "#0071DC" }}
       >
-        <span style={{'marginRight':'10px'}}>Age Demographics of Users With</span>
-        <Menu options={allOptions} onClickHandler={onSelectOption} selectedOption={selectedOption}/>
+        <span style={{ marginRight: "10px" }}>
+          Age Demographics of Users With
+        </span>
+        <Menu
+          options={allOptions}
+          onClickHandler={onSelectOption}
+          selectedOption={selectedOption}
+        />
       </h4>
 
       <Table striped bordered hover size="sm" className="mt-5 mb-2">
@@ -56,14 +58,20 @@ function Demographics() {
           </tr>
         </thead>
         <tbody>
-          {demographicsData.map((item, i) => {
-            return (
-              <tr key={i}>
-                <td> {item.age} </td>
-                <td> {item.count} </td>
-              </tr>
-            );
-          })}
+          {demographicsData.length ? (
+            demographicsData.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td> {item.age} </td>
+                  <td> {item.count} </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="2">No Record</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </>
@@ -72,11 +80,11 @@ function Demographics() {
 
 function Menu({ options, onClickHandler, selectedOption }) {
   return (
-    <Dropdown className="my-2  d-inline" >
-      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm" >
-        {selectedOption.length ? selectedOption : 'Item'}
+    <Dropdown className="my-2  d-inline">
+      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+        {selectedOption.length ? selectedOption : "Item"}
       </Dropdown.Toggle>
-      <Dropdown.Menu >
+      <Dropdown.Menu>
         {options.map((item, i) => {
           return (
             <Dropdown.Item onClick={() => onClickHandler(item)}>

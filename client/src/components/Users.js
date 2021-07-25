@@ -7,18 +7,14 @@ function Users() {
     axios
       .get("/users")
       .then(function (response) {
-        // handle success
         setUsers(response.data);
-        console.log(response.data);
       })
       .catch(function (error) {
-        // handle error
-        console.log(error);
+        // Hanlde Error
       });
   }, []);
 
   const [users, setUsers] = useState([]);
-  console.log("users ", users);
   return (
     <>
       <h4
@@ -38,14 +34,20 @@ function Users() {
           </tr>
         </thead>
         <tbody>
-          {users.map((item, i) => {
-            return (
-              <tr key={i}>
-                <td> {item.username} </td>
-                <td> {item.age} </td>
-              </tr>
-            );
-          })}
+          {users.length ? (
+            users.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td> {item.username} </td>
+                  <td> {item.age} </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="2">No Record</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </>
