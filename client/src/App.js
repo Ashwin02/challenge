@@ -1,6 +1,8 @@
+import HomePage from "./components/HomePage";
+
 function App() {
   return (
-   <div> Hello World </div>
+   <HomePage />
   );
 }
 
