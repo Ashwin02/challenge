@@ -2,7 +2,7 @@ import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function Users() {
+function Demographics() {
   useEffect(() => {
     axios
       .get("/users")
@@ -21,14 +21,13 @@ function Users() {
   console.log("users ", users);
   return (
     <>
-      <h4>All Users</h4>
-      <p>Users and their age</p>
+      <h4>Age Demographics of Users With {'value'}</h4>
 
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>Username</th>
             <th>Age</th>
+            <th>Count</th>
           </tr>
         </thead>
         <tbody>
@@ -46,4 +45,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Demographics;
