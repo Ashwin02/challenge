@@ -1,11 +1,11 @@
 'use strict';
 const mockDBCalls = require('../database/index.js');
 
-const getAllItemsHandler = async (request, response) => {
-    const data = await mockDBCalls.getAllItems();
+const getAllOptionsHandler = async (request, response) => {
+    const data = await mockDBCalls.getAllOptions();
     return response.status(200).send(JSON.stringify(data));
 };
 
 module.exports = (app) => {
-    app.get('/allItems', getAllItemsHandler);
+    app.get('/allOptions', getAllOptionsHandler);
 };

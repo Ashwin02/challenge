@@ -5,11 +5,10 @@ import axios from "axios";
 function Demographics() {
   useEffect(() => {
     axios
-      .get("/allItems")
+      .get("/allOptions")
       .then(function (response) {
         // handle success
-        setAllItems(response.data);
-        console.log(response.data);
+        setAllOptions(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -17,12 +16,12 @@ function Demographics() {
       });
   }, []);
 
-  const [allItems, setAllItems] = useState([]);
-  console.log("items ", allItems);
+  const [allOptions, setAllOptions] = useState([]);
+  console.log("items ", allOptions);
   return (
     <>
       <h4>Age Demographics of Users With "value"</h4>
-      <Menu listOfItems={allItems}/>
+      <Menu options={allOptions} />
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -45,19 +44,16 @@ function Demographics() {
   );
 }
 
-function Menu({listOfItems}) {
+function Menu({ options }) {
   return (
     <Dropdown className="my-2">
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         Item
       </Dropdown.Toggle>
-
       <Dropdown.Menu>
-          {
-              listOfItems.map((item, i) =>{
-                  return <Dropdown.Item>{item}</Dropdown.Item>
-              })
-          }
+        {options.map((item, i) => {
+          return <Dropdown.Item>{item}</Dropdown.Item>;
+        })}
       </Dropdown.Menu>
     </Dropdown>
   );

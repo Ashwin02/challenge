@@ -27,7 +27,7 @@ const getListOfAgesOfUsersWith = (item) => {
   return mockDBCall(dataAccessMethod);
 };
 
-const getAllItems = () => {
+const getAllOptions = () => {
   const dataAccessMethod = () => _.uniqBy(_.flatMap(db.itemsOfUserByUsername));
   return mockDBCall(dataAccessMethod);
 };
@@ -35,5 +35,5 @@ const getAllItems = () => {
 module.exports = {
   getUsers,
   getListOfAgesOfUsersWith,
-  getAllItems,
+  getAllOptions,
 };
