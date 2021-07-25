@@ -22,7 +22,12 @@ const getUsers = () => {
 
 const getListOfAgesOfUsersWith = (item) => {
   const dataAccessMethod = () => {
-    // fill me in :)
+    const users = getAllUsersByOption(item);
+    const result = _.chain(users)
+      .groupBy("age")
+      .map((group) => ({ age: group[0].age, count: group.length }))
+      .value();
+    return result;
   };
   return mockDBCall(dataAccessMethod);
 };
@@ -30,6 +35,18 @@ const getListOfAgesOfUsersWith = (item) => {
 const getAllOptions = () => {
   const dataAccessMethod = () => _.uniqBy(_.flatMap(db.itemsOfUserByUsername));
   return mockDBCall(dataAccessMethod);
+};
+
+const getAllUsersByOption = (option) => {
+  const result = [];
+  const listOfUsers = _.map(db.usersById, (userInfo) => userInfo);
+  for (let [key, value] of Object.entries(db.itemsOfUserByUsername)) {
+    if (value.includes(option)) {
+      const userList = listOfUsers.filter((item) => item.username === key);
+      result.push(...userList);
+    }
+  }
+  return result;
 };
 
 module.exports = {
