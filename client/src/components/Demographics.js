@@ -5,10 +5,10 @@ import axios from "axios";
 function Demographics() {
   useEffect(() => {
     axios
-      .get("/users")
+      .get("/allItems")
       .then(function (response) {
         // handle success
-        setUsers(response.data);
+        setAllItems(response.data);
         console.log(response.data);
       })
       .catch(function (error) {
@@ -17,12 +17,12 @@ function Demographics() {
       });
   }, []);
 
-  const [users, setUsers] = useState([]);
-  console.log("users ", users);
+  const [allItems, setAllItems] = useState([]);
+  console.log("items ", allItems);
   return (
     <>
       <h4>Age Demographics of Users With "value"</h4>
-      <Menu />
+      <Menu listOfItems={allItems}/>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -31,21 +31,21 @@ function Demographics() {
           </tr>
         </thead>
         <tbody>
-          {users.map((item, i) => {
+          {/* {users.map((item, i) => {
             return (
               <tr key={i}>
                 <td> {item.username} </td>
                 <td> {item.age} </td>
               </tr>
             );
-          })}
+          })} */}
         </tbody>
       </Table>
     </>
   );
 }
 
-function Menu() {
+function Menu({listOfItems}) {
   return (
     <Dropdown className="my-2">
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -53,9 +53,11 @@ function Menu() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          {
+              listOfItems.map((item, i) =>{
+                  return <Dropdown.Item>{item}</Dropdown.Item>
+              })
+          }
       </Dropdown.Menu>
     </Dropdown>
   );
